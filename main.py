@@ -6,14 +6,13 @@ class SpriteKind:
     wall = SpriteKind.create()
 
 def on_on_overlap(sprite, otherSprite):
-    rocket.set_position(153, randint(10, 105))
-    enemyprojectile.set_position(rocket.x, rocket.y)
+    enemy1.set_position(153, randint(10, 105))
+    enemyprojectile.set_position(enemy1.x, enemy1.y)
 sprites.on_overlap(SpriteKind.projectile, SpriteKind.wall, on_on_overlap)
 
 def on_a_pressed():
     playerprojectile2.set_position(my_sprite.x, my_sprite.y)
     playerprojectile2.set_velocity(100, 0)
-    playerprojectile2.set_flag(SpriteFlag.INVISIBLE, False)
     playerprojectile2.set_flag(SpriteFlag.INVISIBLE, False)
 controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
 
@@ -34,129 +33,129 @@ sprites.on_overlap(SpriteKind.projectile, SpriteKind.player, on_on_overlap3)
 
 enemyprojectile: Sprite = None
 playerprojectile2: Sprite = None
-rocket: Sprite = None
+enemy1: Sprite = None
 my_sprite: Sprite = None
 scene.set_background_image(img("""
-    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c f f f f f f f f f f f f f f f c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f b b b b b b b b b b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f f f f f f f f f f f f f f f f f c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b f b b b b b b b b b b b f 5 5 5 f f f f f f f f b b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f a a a a a f f f f f f a a a a a a a a a a a a a a a a a a a f f f f f a a a a a a a a a 
-            b b b b b b f f f f f f f f f f f f f f b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f f f f f f 5 5 5 5 5 5 f a a a a a a a a a a a a f f f f f f 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b c c c c c c c c f f f f f f f f f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b c c c c c c c c c c c c c c c c c f f f f f f f f f f f f f f f 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c f f f f f f f f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c f c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 f f f f f f f b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b b f f f f f f f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 f f f f f b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f f f f f f b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f f f f 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b f f f f f f f f f f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b f f f f f f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c f f f f f f f f f f f f f f f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f f f f f f f f f f f f f f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f f f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 f f f f a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f f f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 f f f f f a a a a a a a a a a a a a a a a a a f 5 5 5 5 f f f f f f f a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a f f f f a a a a a a a a a a a a a a a a a a a a a a a a f f f f a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a f f f f a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a f f f f f 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a f f f f f f f f f a a a a a a a a a a a f f f f f 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f f f f f f 5 5 5 5 5 5 5 5 5 f a a a a a a a f f f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f f f f f f f b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f f 5 5 5 5 5 5 5 5 f f f f f f f f f f f f f f b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f f f f f f f f f f f b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f f f c f c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f f f f c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 7 f f f f f c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 f f f f c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 f f f f f c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 f f f f c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f f f c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b f b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f f f f f f f f f b b b b b b b b b b f f f f f 5 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c f f f f f f f f f f c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c f f f f f f f f f f f f f 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f f f f f f f f f f f f f f f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a a f a a a a a a a a a a a a a a a a a a a a f f f f f f f f f f f f f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f f f f f f f f f f f 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c f c c c c c c c c c c c f f f f f f f f f f f c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b f f f f f f f f f f b b b b b b b b f 5 5 5 5 5 5 5 f f f f f f f f b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f f f b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+    c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f f f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 f f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+    c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f f f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 f f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f
+    c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f f 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 f f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c
+    c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c f 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 f f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c
+    c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c f 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 f c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c
+    c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c f 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 f c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c
+    c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c f 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 f c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c
+    c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c f 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 f c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c
+    c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c f 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 f c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c
+    c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c f 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 f c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c
+    c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c f 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 f c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c
+    c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c f 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 f c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c
+    c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c f 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 f c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c
+    c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c f 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 f c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c
+    c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c f 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 f c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c
+    c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c f 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c
+    c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c f 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c
+    c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c
+    c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c
+    c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c
+    c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c
+    c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c
+    c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c
+    c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c
+    c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c
+    c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c
+    c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c
+    c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c
+    c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c
+    c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c
+    c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c
+    c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c
+    c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c
+    c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c
+    c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c
+    c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c
+    c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c
+    c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c
+    c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c f 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c f 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c f 2 2 2 2 2 2 2 f c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c f 2 2 2 2 2 2 f c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c f 2 2 2 2 2 2 f c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c f 2 2 2 2 2 2 f c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c f 2 2 2 2 2 f c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 2 2 f c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c f 2 2 2 2 f c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 f c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c f 2 2 2 2 f c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 f c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c f 2 2 2 f c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c f 2 2 2 2 2 f c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c f 2 2 2 f c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c f 2 2 2 f c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c f 2 2 f c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c f 2 2 2 f c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c f 2 2 f c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c c f 2 f c c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c c f 2 f c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c c f 2 f c c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 4 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c c f f c c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c c f 2 f c c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c c f f c c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c c c f c c c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c c f f c c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c c c f c c c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c c c f c c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c c f 4 f c c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c c f f c c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c c f 4 f c c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c c f f c c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c c f 4 f c c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c c f 4 f c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c f 4 4 4 f c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c c f 4 f c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c c f 4 4 4 f c c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c f 4 4 f c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 f c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c f 4 4 f c c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 f c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c c f 4 4 4 f c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 f c c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c f 4 4 4 4 f c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c f 4 4 4 4 f c c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c f 4 4 4 4 4 f c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c c f 4 4 4 4 4 f c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c f 4 4 4 4 4 4 f c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c f 4 4 4 4 4 4 f c c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c c f 4 4 4 4 4 4 4 f c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c f 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c f 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c f 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c
+    c c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c
+    c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c
+    c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c
+    c c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c
+    c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c
+    c c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c
+    c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c
+    c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c
+    c c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c
+    c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c
+    c c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c
+    c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c
+    c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c
+    c c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c
+    c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c
+    c c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c
+    c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c
+    c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c
+    c c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c
+    c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c
+    c c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c c f 6 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 6 f c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c
+    c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c f 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 f c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c
+    c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c f 6 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 6 f c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c
+    c c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c c f 6 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 f c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c
+    c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c f 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 6 f c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c
+    c c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c c f 6 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 6 f c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c
+    c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c f 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 f c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c
+    c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c f 6 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 6 f c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c
+    c c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c c f 6 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 6 f c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c
+    c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c f 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 f c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c
+    c c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c f 6 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 6 f c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c c
+    c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c f 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 6 f c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c
+    c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c f 6 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 f c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c
+    c c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c f 6 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 6 f c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c c
+    c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c f 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 6 f c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c
+    c c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c f 6 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 f f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c
+    c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f f 6 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 6 f f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c
+    c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f f f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 6 f f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f c
+    c f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f f f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f f f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f
+    f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f f 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
 """))
 my_sprite = sprites.create(img("""
         . . . . . . f f f f . . . . . . 
@@ -178,271 +177,294 @@ my_sprite = sprites.create(img("""
     """),
     SpriteKind.player)
 my_sprite.set_position(9, 67)
-game.splash("Reach a score of 10 to win!")
+game.splash("Reach a score of 10 to advance!")
 controller.move_sprite(my_sprite)
-rocket = sprites.create(img("""
-        . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . f f f f f 
-                    . . . . f f f f f f f f 5 5 7 7 
-                    . . . f 4 4 4 4 4 a a a a 5 5 7 
-                    . . f 4 4 f 4 4 a a a a a a 5 5 
-                    . . . f 4 4 4 4 4 a a a a 5 5 7 
-                    . . . . f f f f f f f f 5 5 7 7 
-                    . . . . . . . . . . . f f f f f 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . .
-    """),
+enemy1 = sprites.create(img("""
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . f f f f f f f
+    . . . . . . . . . . f 2 2 f 4 4
+    . . . . . . . . . f f f f f 4 4
+    . . . . . . f f f f b b b f 4 4
+    . . . . . . f b b b b b b f 4 4
+    . . . . . . f f f f b b b f 4 4
+    . . . . . . . . . f f f f f 4 4
+    . . . . . . . . . . . . . f 4 4
+    . . . . . . . . . . . . . f f f
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+"""),
     SpriteKind.enemy)
-rocket.set_position(146, 56)
+enemy1.set_position(146, 56)
 playerprojectile2 = sprites.create(img("""
-        . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . 4 4 4 4 4 . . . . . . . 
-                    . . . 4 3 3 3 3 3 4 . . . . . . 
-                    . . 4 3 3 8 8 8 3 3 4 . . . . . 
-                    . 4 8 7 8 8 8 8 f 7 7 4 . 2 2 2 
-                    . 4 7 7 8 8 8 8 8 7 4 2 2 2 2 2 
-                    . 4 7 7 8 8 8 8 8 7 4 2 2 2 2 2 
-                    . 4 8 7 8 8 8 8 8 7 7 4 . 2 2 2 
-                    . . 4 3 3 8 8 8 3 3 4 . . . . . 
-                    . . . 4 3 3 3 3 3 4 . . . . . . 
-                    . . . . 4 4 4 4 4 . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . .
-    """),
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . f f . . . . . . . . . . . .
+    . f 9 9 f f f . . . . . . . . .
+    f 9 f 9 9 9 9 f . f . . . . . .
+    f 9 9 f f f 9 9 f 9 f . . . . .
+    . f 9 9 9 9 9 9 9 9 9 f . . . .
+    . f 9 9 9 9 9 9 9 9 9 f . . . .
+    . . f f f f 9 9 9 9 9 f . . . .
+    . . . . . f 9 9 9 9 f . . . . .
+    . . . f f 9 9 9 f f . . . . . .
+    . . f 9 9 9 f f . . . . . . . .
+    . . . f f f . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+"""),
     SpriteKind.playerprojectile)
 enemyprojectile = sprites.create(img("""
-        . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . 4 4 
-                    . . . . e e e e e e e . . 4 4 2 
-                    . . . e e 3 3 6 3 3 e e 4 4 2 2 
-                    . . e e 3 3 3 6 3 3 3 e 4 2 2 2 
-                    . . e 7 7 7 7 6 7 7 7 e 4 2 2 2 
-                    . . e e 3 3 3 6 3 3 3 e 4 2 2 2 
-                    . . . e e 3 3 6 3 3 e e 4 4 2 2 
-                    . . . . e e e e e e e . . 4 4 2 
-                    . . . . . . . . . . . . . . 4 4 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . .
-    """),
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . f f f f . 4 . 4 .
+    . . f f f f f 9 7 7 f 4 . . . 4
+    . f 7 7 9 9 9 9 f f 4 4 . 4 . .
+    . f 7 7 9 9 9 9 f f 4 4 . . . 4
+    . . f f f f f 9 7 7 f 4 . 4 . .
+    . . . . . . . f f f f . 4 . . 4
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . .
+"""),
     SpriteKind.projectile)
 playerprojectile2.set_flag(SpriteFlag.INVISIBLE, True)
-enemyprojectile.set_position(rocket.x, rocket.y)
+enemyprojectile.set_position(enemy1.x, enemy1.y)
 wall2 = sprites.create(img("""
-        f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . .
-    """),
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+    f . . . . . . . . . . . . . . .
+"""),
     SpriteKind.wall)
 wall2.set_position(0, 113)
 enemyprojectile.set_velocity(-80, 0)
 info.set_score(0)
+
+# Set Up More Enemies And Difficulty
+
