@@ -1,437 +1,486 @@
-//  Set Up The Controls, Collision, And Wall
 namespace SpriteKind {
     export const playerprojectile = SpriteKind.create()
     export const wall = SpriteKind.create()
 }
-
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.wall, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
+/**
+ * Set Up The Sprites And Score
+ */
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.wall, function (sprite, otherSprite) {
     rocket.setPosition(153, randint(10, 105))
     enemyprojectile.setPosition(rocket.x, rocket.y)
 })
-controller.A.onEvent(ControllerButtonEvent.Pressed, function on_a_pressed() {
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     playerprojectile2.setPosition(my_sprite.x, my_sprite.y)
     playerprojectile2.setVelocity(100, 0)
     playerprojectile2.setFlag(SpriteFlag.Invisible, false)
     playerprojectile2.setFlag(SpriteFlag.Invisible, false)
 })
-sprites.onOverlap(SpriteKind.playerprojectile, SpriteKind.Enemy, function on_on_overlap2(sprite: Sprite, otherSprite: Sprite) {
+sprites.onOverlap(SpriteKind.playerprojectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     pause(300)
     info.setScore(info.score() + 1)
     if (info.score() == 10) {
-        game.over(true)
+        enemy2.setFlag(SpriteFlag.Invisible, false)
+        enemy2.setPosition(153, randint(10, 105))
+        enemy2projectile.setPosition(enemy2.x, enemy2.y)
+        enemyprojectile.setVelocity(randint(-50, -150), 0)
     }
-    
 })
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function on_on_overlap3(sprite: Sprite, otherSprite: Sprite) {
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
+    pause(500)
+    info.changeLifeBy(-1)
+})
+info.onLifeZero(function () {
     game.over(false)
 })
-//  Set Up The Sprites And Score
-let enemyprojectile : Sprite = null
-let playerprojectile2 : Sprite = null
-let rocket : Sprite = null
-let my_sprite : Sprite = null
+let enemy2projectile: Sprite = null
+let enemy2: Sprite = null
+let enemyprojectile: Sprite = null
+let playerprojectile2: Sprite = null
+let rocket: Sprite = null
+let my_sprite: Sprite = null
 scene.setBackgroundImage(img`
-    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c f f f f f f f f f f f f f f f c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f b b b b b b b b b b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f f f f f f f f f f f f f f f f f c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b f b b b b b b b b b b b f 5 5 5 f f f f f f f f b b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f a a a a a f f f f f f a a a a a a a a a a a a a a a a a a a f f f f f a a a a a a a a a 
-            b b b b b b f f f f f f f f f f f f f f b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f f f f f f 5 5 5 5 5 5 f a a a a a a a a a a a a f f f f f f 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b c c c c c c c c f f f f f f f f f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b c c c c c c c c c c c c c c c c c f f f f f f f f f f f f f f f 5 5 5 5 5 5 5 f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c f f f f f f f f c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c f c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b f 5 5 5 5 5 5 5 f f f f f f f b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b b f f f f f f f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f 5 5 5 5 5 5 f f f f f b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f f f f f f b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f f f f 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b b b b b b f f f f f f f f f f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b f f f f f f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c f f f f f f f f f f f f f f f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f f f f f f f f f f f f f f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f f f a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 f f f f a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 f f f a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 f f f f f a a a a a a a a a a a a a a a a a a f 5 5 5 5 f f f f f f f a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a f f f f a a a a a a a a a a a a a a a a a a a a a a a a f f f f a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a f f f f a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a f f f f f 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a f f f f f f f f f a a a a a a a a a a a f f f f f 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f f f f f f 5 5 5 5 5 5 5 5 5 f a a a a a a a f f f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f f f f f f f b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b f f 5 5 5 5 5 5 5 5 f f f f f f f f f f f f f f b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b f f f f f f f f f f f b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f f f c f c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f f f f c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 7 f f f f f c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 f f f f c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 5 5 5 5 f f f f f c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f 5 5 f f f f c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c f f f c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b f b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f f f f f f f f f b b b b b b b b b b f f f f f 5 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c f f f f f f f f f f c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c f f f f f f f f f f f f f 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a f f f f f f f f f f f f f f f a a a a a a f 5 5 5 5 5 5 5 5 5 5 5 5 f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a a f a a a a a a a a a a a a a a a a a a a a f f f f f f f f f f f f f a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c c f f f f f f f f f f f 5 5 5 5 5 5 5 5 5 5 f c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b f 5 5 5 5 5 5 5 f b b b b b b b b b f 5 5 5 5 5 5 5 5 5 5 5 5 5 f b b b b b b b c c c c c c c c c c c c c c c c c c c c f c c c c c c c c c c c f f f f f f f f f f f c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b f f f f f f f f f f b b b b b b b b f 5 5 5 5 5 5 5 f f f f f f f f b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b f f f f f f f f f b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-`)
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccfffffffffffffffcccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbfffffffbbbbbbbbbbbbbbbccccccccf55555555555555fffffffffffffffffccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbf555ffffffffbbbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaafaaaaaffffffaaaaaaaaaaaaaaaaaaafffffaaaaaaaaa
+    bbbbbbffffffffffffffbbbbbbbbbbbf55555555555fbbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaffffff555555faaaaaaaaaaaaffffff55555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf55555555555fbbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf55555555555fbbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf55555555555fbbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf55555555555fbbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf55555555555fbbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf555555555555fbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf555555555555fbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf555555555555fbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf555555555555fbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbf55555555555fbbbbbbbbbbbbf555555555555fbbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf5555555555faaaaaaaa
+    bbbbbbbf5555555555fbbbbbbbbbbbbf5555555555555fbbbbccccccccf555555555555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbf5555555555fbbbbbbbbbbbbf5555555555555fbbbbccccccccfffffffff5555555555555555555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbf5555555555fbbbbbbbbbbbbf5555555555555fbbbbcccccccccccccccccfffffffffffffff5555555fccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbf5555555555fbbbbbbbbbbbbf5555555555555fbbbcccccccccccccccccccccccccccccccccffffffffccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbf5555555555fbbbbbbbbbbbbf5555555555555fbbbcccccccccccccccccccccccccccccccccccccccfcccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbf5555555555fbbbbbbbbbbbbf5555555555555fbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbf5555555555fbbbbbbbbbbbbf5555555fffffffbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbf5555555555fbbbbbbbbbbbbbfffffffbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbf5555555555fbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbf555555fffffbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaf55555555555faaaaaaaaaaaaf55555555555faaaaaaa
+    bbbbbbbbffffffbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaf555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf555555555555faaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbfffffffbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbffffffffff55555fbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbbbbbbffffffffff555555555555555fbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbffffff5555555555555555555555555fbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccccccccccccccccfffffffffffffffccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccffffffffffffff55555555555555fccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaf55555555555fffaaaaaaaaaaaf5555555555555faaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaf5555555ffffaaaaaaaaaaaaaaf55555555555fffaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaf55fffffaaaaaaaaaaaaaaaaaaf5555fffffffaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaffffaaaaaaaaaaaaaaaaaaaaaaaaffffaaaaaaaaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaffffaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafffff55faaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaaaaaaafffffffffaaaaaaaaaaafffff5555555faaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaffffff555555555faaaaaaafff555555555555faaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbbccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbf55555555555555555555555555555fbbbbbbbbcccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbf55555555555555555555555fffffffbbbbbbbbcccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbff55555555ffffffffffffffbbbbbbbbbbbbbbbcccccccccccccf555555555555555555555555555fccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbfffffffffffbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccf555555555555555555555555fffcfcccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccf55555555555555555555ffffccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccf555555555555557fffffccccccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccf55555555555ffffcccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccf555555fffffcccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccf55ffffcccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf5555555555555faaaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccfffcccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaf55555555555555faaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaf5555555555555faaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaf55555555555555faaaaaaf5555555555555faaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaf555555555555faaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbfffffffbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaf555555555555faaaaaaaa
+    bbbbbbfffffffffbbbbbbbbbbfffff555555fbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf5555555555fbbbbbbbbbbcccccccccccccccccccccccccccccccccffffffffffccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf5555555555fbbbbbbbbbbccccccccccccccccccccfffffffffffff55555555fcccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf5555555555fbbbbbbbbbbccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaf5555555555555faaaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf5555555555fbbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaf55555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf5555555555fbbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaf55555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf5555555555fbbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaf55555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf55555555555fbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaf55555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf55555555555fbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaf5555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf55555555555fbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaf5555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf55555555555fbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaf5555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbbf55555555555fbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaf5555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf555555555555fbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaf5555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf555555555555fbbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaf5555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf5555555555555fbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaf5555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf5555555555555fbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaf5555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf5555555555555fbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaf5555555555555faaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf5555555555555fbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaafffffffffffffffaaaaaaf555555555555faaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf5555555555555fbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaafaaaaaaaaaaaaaaaaaaaafffffffffffffaaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf5555555555555fbbbbbbbcccccccccccccccccccccf55555555555555555555fcccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf5555555555555fbbbbbbbcccccccccccccccccccccfffffffffff5555555555fcccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbf5555555fbbbbbbbbbf5555555555555fbbbbbbbccccccccccccccccccccfcccccccccccfffffffffffcccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbffffffffffbbbbbbbbf5555555ffffffffbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbfffffffffbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    `)
 my_sprite = sprites.create(img`
-        . . . . . . f f f f . . . . . . 
-                    . . . . f f f 9 9 f f f . . . . 
-                    . . . f f f 9 9 9 9 f f f . . . 
-                    . . f f f 9 9 9 9 9 9 f f f . . 
-                    . . f f 9 9 9 9 9 9 9 9 9 f . . 
-                    . . f 9 9 f 9 9 9 f 9 9 9 f . . 
-                    . . f 9 9 f 9 9 9 f 9 9 9 f . . 
-                    . f f 9 9 9 9 9 9 9 9 9 9 f f . 
-                    . f 9 9 9 f f f f f 9 9 9 9 f . 
-                    . f 9 9 9 9 9 9 9 9 9 9 9 9 f . 
-                    . f 9 9 9 9 9 9 9 9 9 9 9 9 f . 
-                    . f 9 9 9 9 9 9 9 9 9 9 9 9 f . 
-                    . f 9 9 9 9 9 9 9 9 9 9 9 9 f . 
-                    . f 8 8 9 9 8 8 8 9 9 8 8 9 f . 
-                    f f 8 8 8 9 8 8 8 8 9 8 8 8 f f 
-                    f 8 8 8 8 8 8 8 8 8 8 8 8 8 8 f
+    . . . . . . f f f f . . . . . . 
+    . . . . f f f 9 9 f f f . . . . 
+    . . . f f f 9 9 9 9 f f f . . . 
+    . . f f f 9 9 9 9 9 9 f f f . . 
+    . . f f 9 9 9 9 9 9 9 9 9 f . . 
+    . . f 9 9 f 9 9 9 f 9 9 9 f . . 
+    . . f 9 9 f 9 9 9 f 9 9 9 f . . 
+    . f f 9 9 9 9 9 9 9 9 9 9 f f . 
+    . f 9 9 9 f f f f f 9 9 9 9 f . 
+    . f 9 9 9 9 9 9 9 9 9 9 9 9 f . 
+    . f 9 9 9 9 9 9 9 9 9 9 9 9 f . 
+    . f 9 9 9 9 9 9 9 9 9 9 9 9 f . 
+    . f 9 9 9 9 9 9 9 9 9 9 9 9 f . 
+    . f 8 8 9 9 8 8 8 9 9 8 8 9 f . 
+    f f 8 8 8 9 8 8 8 8 9 8 8 8 f f 
+    f 8 8 8 8 8 8 8 8 8 8 8 8 8 8 f 
     `, SpriteKind.Player)
 my_sprite.setPosition(9, 67)
 game.splash("Reach a score of 10 to win!")
 controller.moveSprite(my_sprite)
 rocket = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . f f f f f 
-                    . . . . f f f f f f f f 5 5 7 7 
-                    . . . f 4 4 4 4 4 a a a a 5 5 7 
-                    . . f 4 4 f 4 4 a a a a a a 5 5 
-                    . . . f 4 4 4 4 4 a a a a 5 5 7 
-                    . . . . f f f f f f f f 5 5 7 7 
-                    . . . . . . . . . . . f f f f f 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . f f f f f 
+    . . . . f f f f f f f f 5 5 7 7 
+    . . . f 4 4 4 4 4 a a a a 5 5 7 
+    . . f 4 4 f 4 4 a a a a a a 5 5 
+    . . . f 4 4 4 4 4 a a a a 5 5 7 
+    . . . . f f f f f f f f 5 5 7 7 
+    . . . . . . . . . . . f f f f f 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
     `, SpriteKind.Enemy)
-rocket.setPosition(146, 56)
+rocket.setPosition(153, randint(10, 105))
 playerprojectile2 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . 4 4 4 4 4 . . . . . . . 
-                    . . . 4 3 3 3 3 3 4 . . . . . . 
-                    . . 4 3 3 8 8 8 3 3 4 . . . . . 
-                    . 4 8 7 8 8 8 8 f 7 7 4 . 2 2 2 
-                    . 4 7 7 8 8 8 8 8 7 4 2 2 2 2 2 
-                    . 4 7 7 8 8 8 8 8 7 4 2 2 2 2 2 
-                    . 4 8 7 8 8 8 8 8 7 7 4 . 2 2 2 
-                    . . 4 3 3 8 8 8 3 3 4 . . . . . 
-                    . . . 4 3 3 3 3 3 4 . . . . . . 
-                    . . . . 4 4 4 4 4 . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . f f f f f f . . . . 
+    . . . f f f f 9 9 9 9 f f . . . 
+    . . f f 9 9 9 9 9 9 9 9 f . . . 
+    . . . f f f 9 9 9 9 9 9 f . . . 
+    . . . f . f f 9 9 9 9 f f . . . 
+    . . . . . . . f 9 f f . . . . . 
+    . . . . . . . . f f . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
     `, SpriteKind.playerprojectile)
 enemyprojectile = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . 4 4 
-                    . . . . e e e e e e e . . 4 4 2 
-                    . . . e e 3 3 6 3 3 e e 4 4 2 2 
-                    . . e e 3 3 3 6 3 3 3 e 4 2 2 2 
-                    . . e 7 7 7 7 6 7 7 7 e 4 2 2 2 
-                    . . e e 3 3 3 6 3 3 3 e 4 2 2 2 
-                    . . . e e 3 3 6 3 3 e e 4 4 2 2 
-                    . . . . e e e e e e e . . 4 4 2 
-                    . . . . . . . . . . . . . . 4 4 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . f f f f f . . . . . . . 
+    . . . f f 2 e 5 5 f . . . . . . 
+    f f f f 2 e e 5 5 f f f . . . . 
+    f e e e e e 5 5 5 5 5 f . . . . 
+    f f f f 2 e e 5 5 f f f . . . . 
+    . . . f f 2 e 5 5 f . . . . . . 
+    . . . . f f f f f . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
     `, SpriteKind.Projectile)
 playerprojectile2.setFlag(SpriteFlag.Invisible, true)
 enemyprojectile.setPosition(rocket.x, rocket.y)
 let wall2 = sprites.create(img`
-        f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . . 
-                    f . . . . . . . . . . . . . . .
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
+    f...............
     `, SpriteKind.wall)
 wall2.setPosition(0, 113)
-enemyprojectile.setVelocity(-80, 0)
+enemyprojectile.setVelocity(randint(-10, -100), 0)
+playerprojectile2.setPosition(my_sprite.x, my_sprite.y)
+enemy2 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . f f f f 
+    . . . . . . . f f f f f f 1 7 7 
+    . . . . . . f f 8 8 8 8 2 7 7 2 
+    . . . f f f f 8 8 7 7 7 7 2 2 2 
+    . . . f f f f 8 8 7 7 7 7 2 2 2 
+    . . . . . . f f 8 8 8 8 2 7 7 2 
+    . . . . . . . f f f f f f 1 7 7 
+    . . . . . . . . . . . . f f f f 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Enemy)
+enemy2.setPosition(0, -5)
+enemy2.setFlag(SpriteFlag.Invisible, true)
+enemy2projectile = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . f f f f f f f f f f 
+    . . . . . f f 2 2 e e 5 e e 5 2 
+    . . . . . f 2 2 5 e e 5 e e 5 2 
+    . . . . . f 2 5 5 5 5 5 5 5 5 2 
+    . . . . . f 2 5 5 5 5 5 5 5 5 2 
+    . . . . . f 2 2 5 e e 5 e e 5 2 
+    . . . . . f f 2 2 e e 5 e e 5 2 
+    . . . . . . f f f f f f f f f f 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Projectile)
+enemy2projectile.setFlag(SpriteFlag.Invisible, false)
 info.setScore(0)
+info.setLife(3)
